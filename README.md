@@ -34,6 +34,16 @@ Para isso, ultizou-se o modelo que se segue na imagem abaixo:
 
 ![Arquitetura do Negócio!](src/main/resources/images/arquitetura-negocio.png "Arquitetura do Negócio")
 
+
+- *TODO* - DESCREVER AQUI A REGRA DE NEGCIO
+
+
+
+1. Faz três tentativas de pagamento, sendo que, as duas primeiras serão salvas como falha na tentativa. <br/>
+ 1.1. A três tentativa será salvo como segue nos itens abaixo.
+1. Pagamento com número de pedido ímpar, serão salvos como recusado.
+1. Pagamentos com número de pedido par, serão salvos como aprovados.
+
 ##### 3. Configuração e Execução: 
 
 1. Clone o [repositório](https://github.com/gleniomontovani/tech-challenge-pos-tech.git) para sua máquina local.

@@ -28,10 +28,11 @@ Este projeto é um dos modulos que compõe esta solução.
 Para esse modulo, ficou definido que seria usuado o Docker (Container) com o Kubernetes (Orquestração), pois toda aplicação e componentes de infraestrutura  estaria rodando em ambiente/maquina local. <br/>
 Para isso, ultizou-se o modelo que se segue na imagem abaixo:
 
-![Kubernetes no Docker!](src/main/resources/images/kubernetes-in-docker-2.png "Arquitetura do Kubernetes rodando no Docker")
+![Kubernetes no Docker!](src/main/resources/images/kubernetes-in-docker.png "Arquitetura do Kubernetes rodando no Docker")
 
 ###### 2.2. Requisitos de negócio (problema).
 
+![Arquitetura do Negócio!](src/main/resources/images/arquitetura-negocio.png "Arquitetura do Negócio")
 
 ##### 3. Configuração e Execução: 
 
@@ -73,9 +74,6 @@ Caso queira ver os logs da aplicação basta execultar:
 |tech-challenge-pos-tech-5785c6dbf4-mkbcx	| 1/1  |Running|1 (105m ago)|5d16h|
 |tech-challenge-pos-tech-5785c6dbf4-mkct4	| 1/1  |Running|1 (105m ago)|5d16h|
 
-
-
-
 Obtenha o nome do container no campo/coluna `NAME` do resultado do comando acima. Então, execulte o seguinte comando para ver os log da aplicação:
 
 ```
@@ -87,7 +85,6 @@ Obtenha o nome do container no campo/coluna `NAME` do resultado do comando acima
 
 - **URL:** [http://localhost:32000](http://localhost:32000)
 
-&nbsp;
 
 ---
 ##### 6. As APIs disponíveis são: &nbsp;
@@ -104,7 +101,7 @@ Obtenha o nome do container no campo/coluna `NAME` do resultado do comando acima
 1. Pedidos: <br>
  3.1. Criaação(Com e sem identificação do cliente); <br>
  3.2. Consultar; <br>
- 3.3. Alterar Status
+ 3.3. Alterar Status.
 1. Pagamentos:   
  4.1. Consultar por Pedido; <br>
  4.2. Histórico de tentativas de pagamento (Webhook).

@@ -1,0 +1,12 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: tech-challenge-pos-tech-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: tech-challenge-pos-tech
+  minReplicas: 2
+  maxReplicas: 5 # ajuste conforme necessário
+  targetCPUUtilizationPercentage: 50 # ajuste conforme necessário

@@ -7,7 +7,7 @@ Há uma lanchonete de bairro que está expandindo devido seu grande sucesso. Por
 Sem um sistema de controle de pedidos, pode haver confusão entre os atendentes e a cozinha, resultando em atrasos na preparação e entrega dos pedidos. Os pedidos podem ser perdidos, mal interpretados ou esquecidos, levando à insatisfação dos clientes e a perda de negócios.<br/>
 Em resumo, um sistema de controle de pedidos é essencial para garantir que a lanchonete possa atender os clientes de maneira eficiente, gerenciando seus pedidos e estoques de forma adequada. Sem ele, expandir a lanchonete pode acabar não dando certo, resultando em clientes insatisfeitos e impactando os negócios de forma negativa.<br/>
 Para solucionar o problema, a lanchonete irá investir em um sistema de autoatendimento de fast food, que é composto por uma série de dispositivos e interfaces que permitem aos clientes selecionar e fazer pedidos sem precisar interagir com um atendente.<br/><br/>
-Este projeto é um dos modulos que compõe esta solução.
+Este projeto é um dos módulos que compõe esta solução.
 </div>
 
 ##### 1. Informações do projeto:
@@ -25,7 +25,7 @@ Este projeto é um dos modulos que compõe esta solução.
 
 ###### 2.1. Requisitos de Infraestrutura.
 
-Para esse modulo, ficou definido que seria usuado o Docker (Container) com o Kubernetes (Orquestração), pois toda aplicação e componentes de infraestrutura  estaria rodando em ambiente/maquina local. <br/>
+Para esse módulo, ficou definido que seria usuado o Docker (Container) com o Kubernetes (Orquestração), pois toda aplicação e componentes de infraestrutura  estaria rodando em ambiente/maquina local. <br/>
 Para isso, ultizou-se o modelo que se segue na imagem abaixo:
 
 ![Kubernetes no Docker!](src/main/resources/images/kubernetes-in-docker.png "Arquitetura do Kubernetes rodando no Docker")

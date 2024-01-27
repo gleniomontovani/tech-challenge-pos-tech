@@ -23,7 +23,7 @@ Este projeto é uma dos modulos que fará parte dessa solução.
 
 ##### 2. Configuração e Execução: 
 
-1. Clone o [repositório](https://github.com/pietroow/tech-challenge-pos-tech/blob/main/Tech-challenge.postman_collection.json) para sua máquina local.
+1. Clone o [repositório](https://github.com/gleniomontovani/tech-challenge-pos-tech/blob/main/Tech-challenge.postman_collection.json) para sua máquina local.
 1. Certifique-se de ter o Docker instalado e configurado.
 1. Certifique-se de ter o kubectl configurado corretamente para acessar o seu cluster Kubernetes local. <br>
 3.1 Caso você esteja no ambiente Windows, lembre-se de habilita-lo no Docker ([veja aqui](https://birthday.play-with-docker.com/kubernetes-docker-desktop/))
@@ -101,7 +101,7 @@ Obtenha o nome do container no campo/coluna `NAME` do resultado do comando acima
 
 ---
 
->Para utilizar as APIs, baixe o arquivo [JSON](https://github.com/pietroow/tech-challenge-pos-tech/blob/main/Tech-challenge.postman_collection.json) e faça a importação no Postaman.
+>Para utilizar as APIs, baixe o arquivo [JSON](https://github.com/gleniomontovani/tech-challenge-pos-tech/blob/main/Tech-challenge.postman_collection.json) e faça a importação no Postaman.
 
 &nbsp;&nbsp;
 

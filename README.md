@@ -21,9 +21,13 @@ Este projeto é um dos modulos que compõe esta solução.
 1. **Orquestrador:** Kubernet.
 
 
+##### 2. Desenhos Arquiteturais.
+
+![Kubernetes no Docker!](src/main/resources/images/kubernetes-in-docker-2.png "Arquitetura do Kubernetes rodando no Docker")
+
 ##### 2. Configuração e Execução: 
 
-1. Clone o [repositório](https://github.com/gleniomontovani/tech-challenge-pos-tech/blob/main/Tech-challenge.postman_collection.json) para sua máquina local.
+1. Clone o [repositório](https://github.com/gleniomontovani/tech-challenge-pos-tech.git) para sua máquina local.
 1. Certifique-se de ter o Docker instalado e configurado.
 1. Certifique-se de ter o kubectl configurado corretamente para acessar o seu cluster Kubernetes local. <br>
 3.1 Caso você esteja no ambiente Windows, lembre-se de habilita-lo no Docker ([veja aqui](https://birthday.play-with-docker.com/kubernetes-docker-desktop/))

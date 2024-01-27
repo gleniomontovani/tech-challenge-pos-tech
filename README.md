@@ -23,16 +23,24 @@ Este projeto é um dos modulos que compõe esta solução.
 
 ##### 2. Desenhos Arquiteturais.
 
+###### 2.1. Requisitos de Infraestrutura.
+
+Para esse modulo, ficou definido que seria usuado o Docker (Container) com o Kubernetes (Orquestração), pois toda aplicação e componentes de infraestrutura  estaria rodando em ambiente/maquina local. <br/>
+Para isso, ultizou-se o modelo que se segue na imagem abaixo:
+
 ![Kubernetes no Docker!](src/main/resources/images/kubernetes-in-docker-2.png "Arquitetura do Kubernetes rodando no Docker")
 
-##### 2. Configuração e Execução: 
+###### 2.2. Requisitos de negócio (problema).
+
+
+##### 3. Configuração e Execução: 
 
 1. Clone o [repositório](https://github.com/gleniomontovani/tech-challenge-pos-tech.git) para sua máquina local.
 1. Certifique-se de ter o Docker instalado e configurado.
 1. Certifique-se de ter o kubectl configurado corretamente para acessar o seu cluster Kubernetes local. <br>
 3.1 Caso você esteja no ambiente Windows, lembre-se de habilita-lo no Docker ([veja aqui](https://birthday.play-with-docker.com/kubernetes-docker-desktop/))
 
-##### 3. Construir e Rodar a Aplicação Localmente:
+##### 4. Construir e Rodar a Aplicação Localmente:
 
 1. Entre na pasta onde você baixou o codigo fonte. <br/>
  [2]&nbsp;-&nbsp;`Configuração e Execução` 
@@ -75,14 +83,14 @@ Obtenha o nome do container no campo/coluna `NAME` do resultado do comando acima
 ```
 
 
-##### 4. As APIs da aplicação ficaram acessíveis no endereço: 
+##### 5. As APIs da aplicação ficaram acessíveis no endereço: 
 
 - **URL:** [http://localhost:32000](http://localhost:32000)
 
 &nbsp;
 
 ---
-##### 5. As APIs disponíveis são: &nbsp;
+##### 6. As APIs disponíveis são: &nbsp;
 
 1. Cliente:   
  1.1. Criação;    

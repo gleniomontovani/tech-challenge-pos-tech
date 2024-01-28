@@ -46,7 +46,7 @@ public class WebhookRepository implements WebhookGateway {
 					pagEntity.setDataPagamento(dataPagamento);
 					pagEntity.setStatusPagamento(statusPagamento);
 					pagEntity.getHistoricoPagamento()
-							.add(HistoricoPagamentoEntity.adicionaHistorico(descricaoHistorico, pagEntity, tentativas));
+							.add(HistoricoPagamentoEntity.adicionaHistorico(descricaoHistorico, pagEntity, dataPagamento, tentativas));
 					
 					return pagamentoJpaRepository.save(pagEntity);
 				})

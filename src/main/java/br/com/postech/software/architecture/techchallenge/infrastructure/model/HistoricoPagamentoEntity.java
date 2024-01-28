@@ -40,10 +40,13 @@ public class HistoricoPagamentoEntity implements Serializable{
 	@Column(name = "data_historico", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private LocalDateTime dataHistorico;
 	
+	@Column(name = "data_pagamento", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private LocalDateTime dataPagamento;
+	
 	@Column(name = "numero_tentativas")
 	private Integer numeroTentativas;
 	
-	public static HistoricoPagamentoEntity adicionaHistorico(String descricaoHistorico, PagamentoEntity pagamento, Integer tentativas)  {
-		return new HistoricoPagamentoEntity(null, descricaoHistorico, pagamento, LocalDateTime.now(), tentativas + 1);
+	public static HistoricoPagamentoEntity adicionaHistorico(String descricaoHistorico, PagamentoEntity pagamento, LocalDateTime dataPagamento, Integer tentativas)  {
+		return new HistoricoPagamentoEntity(null, descricaoHistorico, pagamento, LocalDateTime.now(), dataPagamento, tentativas + 1);
 	}
 }

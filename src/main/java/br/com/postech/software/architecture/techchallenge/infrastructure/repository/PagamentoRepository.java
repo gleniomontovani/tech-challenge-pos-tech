@@ -62,7 +62,7 @@ public class PagamentoRepository implements PagamentoGateway {
 		
 		MAPPER.typeMap(HistoricoPagamentoEntity.class, HistoricoPagamento.class)
 		  	.addMappings(mapperA -> 
-		  		  mapperA.map(src ->src.getPagamento().getDataPagamento(), HistoricoPagamento::setDataPagamento))
+		  		  mapperA.map(src ->src.getDataPagamento(), HistoricoPagamento::setDataPagamento))
 			.addMappings(mapperB -> 
 				  mapperB.map(src -> src.getPagamento().getPedido().getId(), HistoricoPagamento::setNumeroPedido))
 			.addMappings(mapperC -> 

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: tech-challenge-pos-tech
 spec:
-  replicas: 3
+  replicas: 1 # ajuste conforme necessário
   selector:
     matchLabels:
       app: tech-challenge-pos-tech

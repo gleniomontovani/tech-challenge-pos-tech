@@ -16,6 +16,7 @@ public class Pedido {
 
 	private Long numeroPedido;
     private Cliente cliente;
+    private String statusPagamento;
     private String dataPedido;
     private Integer statusPedido;
     @NotEmpty

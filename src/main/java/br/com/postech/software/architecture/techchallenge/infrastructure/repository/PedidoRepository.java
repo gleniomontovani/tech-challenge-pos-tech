@@ -62,10 +62,23 @@ public class PedidoRepository implements PedidoGateway{
 
 	@Override
 	public Pedido findById(Long numeroPedido) throws BusinessException {
-		PedidoEntity pedido = pedidoJpaRepository.findById(numeroPedido)
+		PagamentoEntity pagamento = pagamentoJpaRepository.findByPedidoId(numeroPedido)
 				.orElseThrow(() -> new NotFoundException("Pedido não encontrado!"));
+		
+		PedidoEntity pedidoEntity = pagamento.getPedido();
+		
+		MAPPER.typeMap(PedidoEntity.class, Pedido.class)
+		.addMappings(mapperA -> mapperA
+				.using(new StatusPedidoParaInteiroConverter())
+					.map(PedidoEntity::getStatusPedido, Pedido::setStatusPedido))
+		.addMappings(mapper -> {
+			  mapper.map(src -> src.getId(), Pedido::setNumeroPedido);
+		});
+		
+		Pedido pedido = MAPPER.map(pedidoEntity, Pedido.class);
+		pedido.setStatusPagamento(pagamento.getStatusPagamento().getDescricao());
 
-		return MAPPER.map(pedido, Pedido.class);
+		return pedido;
 	}
 
 	@Override
@@ -83,9 +96,6 @@ public class PedidoRepository implements PedidoGateway{
 		valideCliente(pedidoEntity);
 
 		valideProduto(pedidoEntity);
-
-		//Salva o pedido e obtem seu numero
-		pedidoEntity = pedidoJpaRepository.save(pedidoEntity);
 		
 		//Obtem o valor total do pedido
 		BigDecimal valorPedido = pedidoEntity.getProdutos()
@@ -98,7 +108,10 @@ public class PedidoRepository implements PedidoGateway{
 		PagamentoEntity pagamentoEntity = new PagamentoEntity(null, pedidoEntity, null,
 				StatusPagamentoEnum.PENDENTE, valorPedido, null);
 		
-		pagamentoJpaRepository.save(pagamentoEntity);		
+		pagamentoJpaRepository.save(pagamentoEntity);
+
+		//Salva o pedido e obtem seu numero
+		pedidoEntity = pedidoJpaRepository.save(pedidoEntity);
 		
 		MAPPER.typeMap(PedidoEntity.class, Pedido.class)
 		.addMappings(mapperA -> mapperA
@@ -107,8 +120,11 @@ public class PedidoRepository implements PedidoGateway{
 		.addMappings(mapper -> {
 			  mapper.map(src -> src.getId(), Pedido::setNumeroPedido);
 		});
-
-		return MAPPER.map(pedidoEntity, Pedido.class);
+		
+		Pedido novoPedido = MAPPER.map(pedidoEntity, Pedido.class);
+		novoPedido.setStatusPagamento(pagamentoEntity.getStatusPagamento().getDescricao());
+		
+		return novoPedido;
 	}
 	
 	@Override

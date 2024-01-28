@@ -20,5 +20,6 @@ public class PedidoResponse {
     private Cliente cliente;
     private String dataPedido;
     private Integer statusPedido;
+    private String statusPagamento;
     private List<PedidoProduto> produtos;
 }

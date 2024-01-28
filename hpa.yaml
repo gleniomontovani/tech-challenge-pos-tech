@@ -7,6 +7,6 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: tech-challenge-pos-tech
-  minReplicas: 2
+  minReplicas: 1 # ajuste conforme necessário
   maxReplicas: 5 # ajuste conforme necessário
   targetCPUUtilizationPercentage: 50 # ajuste conforme necessário

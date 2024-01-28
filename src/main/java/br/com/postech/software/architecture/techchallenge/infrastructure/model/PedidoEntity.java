@@ -32,7 +32,7 @@ public class PedidoEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private ClienteEntity cliente;
-
+    
     @Column(name = "data_pedido", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime dataPedido;
 

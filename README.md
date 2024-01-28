@@ -25,24 +25,61 @@ Este projeto é um dos módulos que compõe esta solução.
 
 ###### 2.1. Requisitos de Infraestrutura.
 
+###### 2.1.1. Arquitetura de Infraestrutura.
+
 Para esse módulo, ficou definido que seria usuado o Docker (Container) com o Kubernetes (Orquestração), pois toda aplicação e componentes de infraestrutura  estaria rodando em ambiente/maquina local. <br/>
-Para isso, ultizou-se o modelo que se segue na imagem abaixo:
+Para isso, utilizou-se o modelo que se segue na imagem abaixo:
 
 ![Kubernetes no Docker!](src/main/resources/images/kubernetes-in-docker.png "Arquitetura do Kubernetes rodando no Docker")
 
 ###### 2.2. Requisitos de negócio (problema).
 
+###### 2.2.1. Clean Architecture - Arquitetura Limpa.
+Conforme informado anteriormente<sub>[1]</sub>, o padrão arquitetural definido para esse projeto foi a Clean Architecture. Esse conceito proposto por Robert Martin – mais conhecido como Uncle Bob – tem como objetivo promover a implementação de sistemas que favorecem reusabilidade de código, coesão, independência de tecnologia e testabilidade.
+
+Para esse módulo, aplicamos esse conceito da seguinte forma:
+
+![Clean Architecture!](src/main/resources/images/clean-architecture.png "Clean Architecture")
+
+
+###### 2.2.2. Arquitetura MVP.
 ![Arquitetura do Negócio!](src/main/resources/images/arquitetura-negocio.png "Arquitetura do Negócio")
 
 
-- *TODO* - DESCREVER AQUI A REGRA DE NEGCIO
+*Lembrete:* Para esse módulo, se faz necessário esse desenho para ilustrar a solução de negócio apresentada.
+
+**Dado as seguintes regras:** 
+
+a. 	Alterar/criar as APIs: 
+             
+&nbsp;&nbsp;i.	Checkout Pedido que deverá receber os produtos solicitados e retornar a identificação do pedido.<br/>
+&nbsp;&nbsp;ii.	Consultar status pagamento pedido, que informa se o pagamento foi aprovado ou não.<br/>
+&nbsp;&nbsp;iii. Webhook para receber confirmação de pagamento aprovado ou recusado.<br/>
+&nbsp;&nbsp;iv. A lista de pedidos deverá retorná-los com suas descrições, ordenados com a seguinte regra: <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;1. Pronto > Em Preparação > Recebido;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;2.Pedidos mais antigos primeiro e mais novos depois;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;3.Pedidos com status Finalizado não devem aparecer na lista.<br/>
+&nbsp;&nbsp;v.	Atualizar o status do pedido.<br/>
+&nbsp;&nbsp;vi.	Como desafio extra, opcionalmente, você pode implementar a integração com Mercado Pago para gerar o QRCode para pagamento e integrar com o WebHook para capturar os pagamentos. Caso contrário, será necessário realizar o mock da parte de pagamentos. Como referência, acesse: <a href="https://www.mercadopago.com.br/developers/pt/docs/qr-code/integration-configuration/qr-dynamic/integration" rel="noopener" target="_blank">site do mercado pago</a>.
 
 
+**Solução apresentada:**
+
+Na definição da solução para a forma de pagamento (itens iii e vi), chegou-se ao concesso que não iriamos integrar com o `Mercado Pago` ou qualquer outra integradora de pagamento. Ao realizar essa integração, teriamos que ter uma URL exposta publicamente para que nós enviasse a mundaça de status do pagamento no WebHook. 
+
+Como não queriamos implantar esse módulo em uma Cloud, como por exemplo: Azure, AWS e etc, pois gostariamos que toda solução rodasse na maquina local, preferimos partir para um processamente que fosse realizado pelo proprio módulo.
+
+Dados essas definições, a solução apresentada foi de criar um JOB (`Sheduler`), que ficaria rodando de 1 em 1 minutos, simulando o envio de um WebHook do `Mercado Pago`. Teremos assim, um endpoint que receberá as requisições dessa `Sheduler` e segundo essas três regras abaixo, irá processar os pagamentos:
 
 1. Faz três tentativas de pagamento, sendo que, as duas primeiras serão salvas como falha na tentativa. <br/>
- 1.1. A três tentativa será salvo como segue nos itens abaixo.
-1. Pagamento com número de pedido ímpar, serão salvos como recusado.
-1. Pagamentos com número de pedido par, serão salvos como aprovados.
+ 1.1. A três tentativa será salvo como se segue nos itens abaixo.
+1. Pagamento com número de pedido ímpar, serão salvos como `Recusado`.
+1. Pagamentos com número de pedido par, serão salvos como `Aprovado`.
+
+
+Esse processo de negar o pagamento, tem o propósito de gerar um histórico de tentativa, pelo qual pode-se consultar todo o processo, dando assim, maior rastreabilidade. 
+
+Também incluímos a regra para negar os pagamentos ímpares e aprovar os pares, justamente para mostrar que o sistema faz os dois processos. Isso porque no futuro pode-se definir uma regra mais abrangente para ambos os casos. 
 
 ##### 3. Configuração e Execução: 
 
@@ -53,8 +90,7 @@ Para isso, ultizou-se o modelo que se segue na imagem abaixo:
 
 ##### 4. Construir e Rodar a Aplicação Localmente:
 
-1. Entre na pasta onde você baixou o codigo fonte. <br/>
- [2]&nbsp;-&nbsp;`Configuração e Execução` 
+1. Entre na pasta onde você baixou o codigo fonte.<sub>[2]</sub>
 2. Após isso, construa a imagem Docker localmente (no mesmo diretório do `Dockerfile`) **:**
 
 ```

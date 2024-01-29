@@ -158,7 +158,10 @@ Obtenha o nome do container no campo/coluna `NAME` do resultado do comando acima
 
 ---
 
->Para utilizar as APIs, baixe o arquivo [JSON](https://github.com/gleniomontovani/tech-challenge-pos-tech/blob/main/Tech-challenge.postman_collection.json) e faça a importação no Postaman.
+> * Para utilizar as APIs, baixe o arquivo [JSON](https://github.com/gleniomontovani/tech-challenge-pos-tech/blob/main/Tech-challenge.postman_collection.json) e faça a importação no Postaman.
+
+> * Segue o link do vídeo demonstrando a arquitetura desenvolvida [aqui](https://youtu.be/9nAS2MkmzEM) .
+
 
 &nbsp;&nbsp;
 

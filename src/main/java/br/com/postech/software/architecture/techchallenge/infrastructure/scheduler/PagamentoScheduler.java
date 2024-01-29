@@ -25,7 +25,7 @@ public class PagamentoScheduler {
 		//Buscar a lista de pagamentos pendentes 
 		List<Pagamento> pagamentosPendentes = pagamentoGateway.listarPagamentosPendentes();
 		
-//		//fazer uma interação realizar a aprovação de cada pagamento.
+		//fazer uma interação realizar a aprovação de cada pagamento.
 		for (Pagamento pagamento : pagamentosPendentes) {
 			//Verifica se o pagamento sera aprovado ou recusado.
 			//Para isso considera que os pagamento com numero pares seram aprovado e impares seram recusados.

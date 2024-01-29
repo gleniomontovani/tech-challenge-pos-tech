@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS historico_pagamento (
-                                      id SERIAL PRIMARY KEY,
+                                      id INTEGER PRIMARY KEY,
                                       pagamento_id INTEGER,
                                       data_historico TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                       data_pagamento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

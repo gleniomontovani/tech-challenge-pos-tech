@@ -12,7 +12,7 @@ public class WebhookUseCases {
 	
 	private final WebhookGateway webhookGateway;
 
-	public Pagamento atualizaPagamento(Pagamento pagamento) {
+	public Pagamento atualizaPagamento(Pagamento pagamento) throws Exception {
 		return webhookGateway.atualizaPagamento(pagamento);
 	}
 }

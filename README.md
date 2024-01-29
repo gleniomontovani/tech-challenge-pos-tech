@@ -27,8 +27,8 @@ Este projeto é um dos módulos que compõe esta solução.
 
 ###### 2.1.1. Arquitetura de Infraestrutura.
 
-Para esse módulo, ficou definido que seria usuado o Docker (Container) com o Kubernetes (Orquestração), pois toda aplicação e componentes de infraestrutura  estaria rodando em ambiente/maquina local. <br/>
-Para isso, utilizou-se o modelo que se segue na imagem abaixo:
+Para esse módulo, ficou definido que seria usado o Docker (Container) com o Kubernetes (Orquestração), pois toda aplicação e componentes de infraestrutura  estaria rodando em ambiente/máquina local. <br/>
+Para isso, utilizou-se o modelo que segue na imagem abaixo:
 
 ![Kubernetes no Docker!](src/main/resources/images/kubernetes-in-docker.png "Arquitetura do Kubernetes rodando no Docker")
 
@@ -46,7 +46,7 @@ Para esse módulo, aplicamos esse conceito da seguinte forma:
 ![Arquitetura do Negócio!](src/main/resources/images/arquitetura-negocio.png "Arquitetura do Negócio")
 
 
-*Lembrete:* Para esse módulo, se faz necessário esse desenho para ilustrar a solução de negócio apresentada.
+*Lembrete:* Para esse módulo, faz-se necessário esse desenho para ilustrar a solução de negócio apresentada.
 
 **Dado as seguintes regras:** 
 
@@ -60,26 +60,26 @@ a. 	Alterar/criar as APIs:
 &nbsp;&nbsp;&nbsp;&nbsp;2.Pedidos mais antigos primeiro e mais novos depois;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;3.Pedidos com status Finalizado não devem aparecer na lista.<br/>
 &nbsp;&nbsp;v.	Atualizar o status do pedido.<br/>
-&nbsp;&nbsp;vi.	Como desafio extra, opcionalmente, você pode implementar a integração com Mercado Pago para gerar o QRCode para pagamento e integrar com o WebHook para capturar os pagamentos. Caso contrário, será necessário realizar o mock da parte de pagamentos. Como referência, acesse: <a href="https://www.mercadopago.com.br/developers/pt/docs/qr-code/integration-configuration/qr-dynamic/integration" rel="noopener" target="_blank">site do mercado pago</a>.
+&nbsp;&nbsp;vi.	Como desafio extra, opcionalmente, pode-se implementar a integração com Mercado Pago para gerar o QRCode para pagamento e integrar com o WebHook para capturar os pagamentos. Caso contrário, será necessário realizar o mock da parte de pagamentos. Como referência, acesse: <a href="https://www.mercadopago.com.br/developers/pt/docs/qr-code/integration-configuration/qr-dynamic/integration" rel="noopener" target="_blank">site do mercado pago</a>.
 
 
 **Solução apresentada:**
 
-Na definição da solução para a forma de pagamento (itens iii e vi), chegou-se ao concesso que não iriamos integrar com o `Mercado Pago` ou qualquer outra integradora de pagamento. Ao realizar essa integração, teriamos que ter uma URL exposta publicamente para que nós enviasse a mundaça de status do pagamento no WebHook. 
+Na definição da solução para a forma de pagamento (itens iii e vi), chegamos ao consenso que não iríamos integrar com o `Mercado Pago` ou qualquer outra integradora de pagamento. Ao realizar essa integração, teríamos que ter uma URL exposta publicamente para que nos enviassem a mundaça de status do pagamento no WebHook. 
 
-Como não queriamos implantar esse módulo em uma Cloud, como por exemplo: Azure, AWS e etc, pois gostariamos que toda solução rodasse na maquina local, preferimos partir para um processamente que fosse realizado pelo proprio módulo.
+Como não queríamos implantar esse módulo em uma Cloud, como por exemplo: Azure, AWS e etc, pois gostaríamos que toda solução rodasse na máquina local, preferimos partir para um processamento que fosse realizado pelo próprio módulo.
 
-Dados essas definições, a solução apresentada foi de criar um JOB (`Sheduler`), que ficaria rodando de 30 em 30 segundos, simulando o envio de um WebHook do `Mercado Pago`. Teremos assim, um endpoint que receberá as requisições dessa `Sheduler` e segundo essas três regras abaixo, irá processar os pagamentos:
+Dadas essas definições, a solução apresentada foi de criar um JOB (`Sheduler`), que ficaria rodando de 30 em 30 segundos, simulando o envio de um WebHook do `Mercado Pago`. Teremos assim, um endpoint que receberá as requisições dessa `Sheduler` e segundo essas três regras abaixo, irá processar os pagamentos:
 
 1. Faz três tentativas de pagamento, sendo que, as duas primeiras serão salvas como falha na tentativa. <br/>
- 1.1. A três tentativa será salvo como se segue nos itens abaixo.
-1. Pagamento com número de pedido ímpar, serão salvos como `Recusado`.
+ 1.1. A tentativa três será salvo como se segue nos itens abaixo.
+1. Pagamentos com número de pedido ímpar, serão salvos como `Recusado`.
 1. Pagamentos com número de pedido par, serão salvos como `Aprovado`.
 
 
 Esse processo de negar o pagamento, tem o propósito de gerar um histórico de tentativa, pelo qual pode-se consultar todo o processo, dando assim, maior rastreabilidade. 
 
-Também incluímos a regra para negar os pagamentos ímpares e aprovar os pares, justamente para mostrar que o sistema faz os dois processos. Isso porque no futuro pode-se definir uma regra mais abrangente para ambos os casos. 
+Também incluímos, a regra para negar os pagamentos ímpares e aprovar os pares, justamente para mostrar que o sistema faz os dois processos. Isso porque no futuro pode-se definir uma regra mais abrangente para ambos os casos. 
 
 **Observação:** *É importante fazer duas requisições de pedido (checkout de pedido) para verificar todo esse comportamento. Além disso, observe que o processamento do JOB*(`Sheduler`) *leva 30 segundos para cada tentativa. Levando em consideração que serão três tentativas, o tempo total para finalização do processamento de pagamento é de aproximadamente 1 minuto e 30 segundos(Enquanto isso pode toma um café..rs).*
 
@@ -92,14 +92,14 @@ Também incluímos a regra para negar os pagamentos ímpares e aprovar os pares,
 
 ##### 4. Construir e Rodar a Aplicação Localmente:
 
-1. Entre na pasta onde você baixou o codigo fonte.<sub>[2]</sub>
+1. Entre na pasta onde você baixou o código fonte.<sub>[2]</sub>
 2. Após isso, construa a imagem Docker localmente (no mesmo diretório do `Dockerfile`) **:**
 
 ```
 # docker build -t tech-challenge-pos-tech:latest . 
 ```
 
-Execulte o seguintes comandos (na seguinte ordem) para implantar os manifestos do Kubernetes:
+Execute os seguintes comandos (na seguinte ordem) para implantar os manifestos do Kubernetes:
 
 ```
 # kubectl apply -f postgres-deployment.yaml
@@ -109,7 +109,7 @@ Execulte o seguintes comandos (na seguinte ordem) para implantar os manifestos d
 # kubectl apply -f hpa.yaml
 ```
 
-Caso queira ver os logs da aplicação basta execultar:
+Caso queira ver os logs da aplicação, basta executar:
 
 ```
 # kubectl get pods 
@@ -122,14 +122,14 @@ Caso queira ver os logs da aplicação basta execultar:
 |tech-challenge-pos-tech-5785c6dbf4-mkbcx	| 1/1  |Running|1 (105m ago)|5d16h|
 |tech-challenge-pos-tech-5785c6dbf4-mkct4	| 1/1  |Running|1 (105m ago)|5d16h|
 
-Obtenha o nome do container no campo/coluna `NAME` do resultado do comando acima. Então, execulte o seguinte comando para ver os log da aplicação:
+Obtenha o nome do container no campo/coluna `NAME` do resultado do comando acima. Então, execute o seguinte comando para ver os logs da aplicação:
 
 ```
 # kubectl logs -f nome_do_pod (tech-challenge-pos-tech-5785c6dbf4-86g9j)
 ```
 
 
-##### 5. As APIs da aplicação ficaram acessíveis no endereço: 
+##### 5. As APIs da aplicação ficarão acessíveis no endereço: 
 
 - **URL:** [http://localhost:32000](http://localhost:32000)
 

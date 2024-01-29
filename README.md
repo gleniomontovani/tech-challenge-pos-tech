@@ -72,16 +72,16 @@ Como não queríamos implantar esse módulo em uma Cloud, como por exemplo: Azur
 Dadas essas definições, a solução apresentada foi de criar um JOB (`Sheduler`), que ficaria rodando de 30 em 30 segundos, simulando o envio de um WebHook do `Mercado Pago`. Teremos assim, um endpoint que receberá as requisições dessa `Sheduler` e segundo essas três regras abaixo, irá processar os pagamentos:
 
 1. Faz três tentativas de pagamento, sendo que, as duas primeiras serão salvas como falha na tentativa. <br/>
- 1.1. A tentativa três será salvo como se segue nos itens abaixo.
+ 1.1. A tentativa três será salvo como segue nos itens abaixo:
 1. Pagamentos com número de pedido ímpar, serão salvos como `Recusado`.
 1. Pagamentos com número de pedido par, serão salvos como `Aprovado`.
 
 
-Esse processo de negar o pagamento, tem o propósito de gerar um histórico de tentativa, pelo qual pode-se consultar todo o processo, dando assim, maior rastreabilidade. 
+Esse processo de negar o pagamento, tem o propósito de gerar um histórico de tentativas, pelo qual pode-se consultar todo o processo, dando assim, maior rastreabilidade. 
 
 Também incluímos, a regra para negar os pagamentos ímpares e aprovar os pares, justamente para mostrar que o sistema faz os dois processos. Isso porque no futuro pode-se definir uma regra mais abrangente para ambos os casos. 
 
-**Observação:** *É importante fazer duas requisições de pedido (checkout de pedido) para verificar todo esse comportamento. Além disso, observe que o processamento do JOB*(`Sheduler`) *leva 30 segundos para cada tentativa. Levando em consideração que serão três tentativas, o tempo total para finalização do processamento de pagamento é de aproximadamente 1 minuto e 30 segundos(Enquanto isso pode toma um café..rs).*
+**Observação:** *É importante fazer duas requisições de pedido (checkout de pedido) para verificar todo esse comportamento. Além disso, observe que o processamento do JOB*(`Sheduler`) *leva 30 segundos para cada tentativa. Levando em consideração que serão três tentativas, o tempo total para finalização do processamento de pagamento é de aproximadamente 1 minuto e 30 segundos(Enquanto isso, pode tomar um café..rs).*
 
 ##### 3. Configuração e Execução: 
 

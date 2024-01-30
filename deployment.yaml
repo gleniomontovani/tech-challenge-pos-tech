@@ -15,9 +15,17 @@ spec:
       containers:
         - name: tech-challenge-pos-tech
           image: tech-challenge-pos-tech:latest
+          imagePullPolicy: IfNotPresent    
           ports:
             - containerPort: 8080
           env:
             - name: SPRING_DATASOURCE_URL
               value: jdbc:postgresql://postgresql-service:5432/restaurante
-          imagePullPolicy: IfNotPresent    
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "2Gi"
+              cpu: "500m"  
+      restartPolicy: Always                          

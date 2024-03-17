@@ -13,6 +13,7 @@ jobs:
     - name: Downloand JAVA
       uses: actions/setup-java@v4
       with:
+        distribution: 'adopt-hotspot'
         java-version: '17'
 
     - name: Build and Test with Maven

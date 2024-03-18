@@ -6,19 +6,26 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Build
-        run: echo "Building the application..."
-      - name: Set test flag
-        run: echo "TEST_REQUIRED=true" >> $GITHUB_ENV
-      - name: Run Test Workflow
-        if: success()
-        run: |
-          mkdir -p .github/generated
-          echo "::set-output name=TEST_WORKFLOW_PATH::.github/generated/test.yml"
-          echo "${{ github.workspace }}/.github/generated" >> $GITHUB_PATH
+  useCallable:
+    uses: ./.github/workflows/test.yml
+    with:
+      name: 'Glenio'
+
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+#       - name: Build
+#         run: echo "Building the application..."
+#       - name: Set test flag
+#         run: echo "TEST_REQUIRED=true" >> $GITHUB_ENV
+#       - name: Run Test Workflow
+#         if: success()
+#         run: |
+#           mkdir -p .github/generated
+#           echo "::set-output name=TEST_WORKFLOW_PATH::.github/generated/test.yml"
+#           echo "${{ github.workspace }}/.github/generated" >> $GITHUB_PATH
  

@@ -9,7 +9,7 @@ on:
 jobs:
   # Label of the container job
   container-job:
-    name: Install and Configure PostgreSQL
+    name: Install and Configure PostgreSQL and Run Flyway Scripts
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -32,11 +32,15 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
     
-      - name: Install dependencies
+      - name: Install Flyway CLI
         run: |
-          npm install
-          npm ci
-    
+          wget -qO- https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/8.5.6/flyway-commandline-8.5.6-linux-x64.tar.gz | tar xvz && \
+          sudo mv flyway-8.5.6 /opt/flyway && \
+          sudo ln -s /opt/flyway/flyway /usr/local/bin/flyway
+          
+      - name: Run Flyway Migrations
+        run: flyway -url=jdbc:postgresql://localhost:5432/mydatabase -user=postgres -password=${{ secrets.POSTGRES_PASSWORD }} -locations=filesystem:src/main/resources/db migrate
+
       - name: Connect to PostgreSQL
         # Runs a script that creates a PostgreSQL table, populates
         # the table with data, and then retrieves the data.

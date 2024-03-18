@@ -16,11 +16,7 @@ jobs:
       - name: Set test flag
         run: echo "TEST_REQUIRED=true" >> $GITHUB_ENV
       - name: Run Test Workflow
-        if: success()
-        #uses: ./.github/workflows/test.yml
-        uses: octo-org/example-repo/.github/workflows/test.yml@main
-        # with:
-        #   config-path: ./.github/test.yml
+
 
   # deploy:
   #   runs-on: ubuntu-latest

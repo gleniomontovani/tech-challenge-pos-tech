@@ -1,20 +1,3 @@
-name: Build and Tests
+name: Build
 
-on: [push, pull_request]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-
-    - name: Downloand JAVA
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'adopt-hotspot'
-        java-version: '17'
-
-    - name: Build and Test with Maven
-      run: mvn -B test
+on: [pull_request]

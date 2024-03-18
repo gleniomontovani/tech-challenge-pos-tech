@@ -39,7 +39,7 @@ jobs:
           sudo ln -s /opt/flyway/flyway /usr/local/bin/flyway
           
       - name: Run Flyway Migrations
-        run: flyway -url=jdbc:postgresql://localhost:5432/mydatabase -user=postgres -password=${{ secrets.POSTGRES_PASSWORD }} -locations=filesystem:src/main/resources/db migrate
+        run: flyway -url=jdbc:postgresql://localhost:5432/restaurante -user=postgres -password=${{ secrets.POSTGRES_PASSWORD }} -locations=filesystem:src/main/resources/db migrate
 
       - name: Connect to PostgreSQL
         # Runs a script that creates a PostgreSQL table, populates

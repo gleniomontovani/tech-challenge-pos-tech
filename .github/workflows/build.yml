@@ -17,5 +17,8 @@ jobs:
         run: echo "TEST_REQUIRED=true" >> $GITHUB_ENV
       - name: Run Test Workflow
         if: success()
-        run: echo "::include .github/workflows/test.yml" >> ${{ github.workspace }}/.github/build.yml  
+        run: |
+          mkdir -p .github/generated
+          echo "::set-output name=TEST_WORKFLOW_PATH::.github/generated/test.yml"
+          echo "${{ github.workspace }}/.github/generated" >> $GITHUB_PATH
  

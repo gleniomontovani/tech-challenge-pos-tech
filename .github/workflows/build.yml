@@ -45,10 +45,10 @@ jobs:
       - name: Run Flyway Migrations
         run: flyway -url=jdbc:postgresql://localhost:5432/restaurante -user=postgres -password=${{ secrets.POSTGRES_PASSWORD }} -locations=filesystem:src/main/resources/db migrate
 
-      - name: Connect to PostgreSQL
+      #- name: Connect to PostgreSQL
         # Runs a script that creates a PostgreSQL table, populates
         # the table with data, and then retrieves the data.
-        run: node client.js
+       # run: node client.js
         # Environment variable used by the `client.js` script to create
         # a new PostgreSQL client.
         env:

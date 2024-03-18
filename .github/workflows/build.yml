@@ -34,7 +34,7 @@ jobs:
 
       - name: Create PostgreSQL Database
         run: |
-          psql -h localhost -U postgres -c "CREATE DATABASE restaurante;"  
+          PGPASSWORD=${{ secrets.POSTGRES_PASSWORD }} psql -h localhost -U postgres -c "CREATE DATABASE restaurante;" 
     
       - name: Install Flyway CLI
         run: |

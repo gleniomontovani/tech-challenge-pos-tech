@@ -1,4 +1,4 @@
-name: Build the Application
+name: Build Workflow
 
 on:
   push:
@@ -6,26 +6,15 @@ on:
       - main
 
 jobs:
-  useCallable:
-    uses: octo-org/example-repo/.github/workflows/test.yml@v1
-    with:
-      name: 'Glenio'
-
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
-#       - name: Build
-#         run: echo "Building the application..."
-#       - name: Set test flag
-#         run: echo "TEST_REQUIRED=true" >> $GITHUB_ENV
-#       - name: Run Test Workflow
-#         if: success()
-#         run: |
-#           mkdir -p .github/generated
-#           echo "::set-output name=TEST_WORKFLOW_PATH::.github/generated/test.yml"
-#           echo "${{ github.workspace }}/.github/generated" >> $GITHUB_PATH
- 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build
+        run: echo "Building the application..."
+      - name: Set test flag
+        run: echo "TEST_REQUIRED=true" >> $GITHUB_ENV
+      - name: Call Test Workflow
+        if: success()
+        uses: ./.github/workflows/test.yml

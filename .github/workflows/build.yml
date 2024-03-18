@@ -20,7 +20,7 @@ jobs:
         #uses: ./.github/workflows/test.yml
         uses: octo-org/example-repo/.github/workflows/test.yml@main
         with:
-          config-path: .github/workflows/test.yml
+          config-path: ./.github/workflows/test.yml
 
   # deploy:
   #   runs-on: ubuntu-latest

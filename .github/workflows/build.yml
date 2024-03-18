@@ -9,14 +9,9 @@ on:
 jobs:
   # Label of the container job
   container-job:
-    # Containers must run in Linux based operating systems
+    name: Install and Configure PostgreSQL
     runs-on: ubuntu-latest
-    # Docker Hub image that `container-job` executes in
-    container: node:10.18-jessie
-
-    # Service containers to run with `container-job`
     services:
-      # Label used to access the service container
       postgres:
         # Docker Hub image
         image: postgres
@@ -34,12 +29,9 @@ jobs:
           - 5432:5432
 
     steps:
-      # Downloads a copy of the code in your repository before running CI tests
       - name: Check out repository code
         uses: actions/checkout@v4
     
-      # Performs a clean installation of all dependencies in the `package.json` file
-      # For more information, see https://docs.npmjs.com/cli/ci.html
       - name: Install dependencies
         run: npm ci
     
@@ -98,6 +90,7 @@ jobs:
         with:
           name: artifact
           path: /target/tech-challenge-pos-tech.jar
+
   deploy:
     needs: build
     name: Deploy on AWS Elastic Beanstall
@@ -120,4 +113,3 @@ jobs:
           region: us-east-1
           deployment_package: tech-challenge-pos-tech.jar
 
-   

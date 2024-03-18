@@ -1,4 +1,4 @@
-name: Build Workflow
+name: Build and Deploy
 
 on:
   push:
@@ -13,8 +13,13 @@ jobs:
         uses: actions/checkout@v2
       - name: Build
         run: echo "Building the application..."
-      - name: Set test flag
-        run: echo "TEST_REQUIRED=true" >> $GITHUB_ENV
-      - name: Call Test Workflow
-        if: success()
-        uses: ./.github/workflows/test.yml
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Test
+        run: echo "Testing the application..."
+      - name: Set deploy flag
+        run: echo "DEPLOY_REQUIRED=true" >> $GITHUB_ENV      

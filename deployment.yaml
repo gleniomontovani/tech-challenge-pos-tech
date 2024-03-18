@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: tech-challenge-pos-tech
 spec:
-  replicas: 3 # ajuste conforme necessário
+  replicas: 3
   selector:
     matchLabels:
       app: tech-challenge-pos-tech
@@ -14,18 +14,18 @@ spec:
     spec:
       containers:
         - name: tech-challenge-pos-tech
-          image: tech-challenge-pos-tech:latest
-          imagePullPolicy: IfNotPresent    
+          image: gleniomontovani/tech-challenge-pos-tech:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
-          env:
-            - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://postgresql-service:5432/restaurante
           resources:
             requests:
               memory: "512Mi"
               cpu: "250m"
             limits:
               memory: "2Gi"
-              cpu: "500m"  
-      restartPolicy: Always                          
+              cpu: "500m"
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: dockerhub-secret
+                        

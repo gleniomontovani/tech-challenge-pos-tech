@@ -1,45 +1,19 @@
 name: Test Workflow
 
-# on:
-#   workflow_run:
-#     workflows: ["Main Workflow"]
-#     types:
-#       - completed
-
-on: 
+on:
   workflow_call:
     inputs:
-      name: 
-        description: 'Name for greeting'
-        required: true
-        type: 'string'
-    outputs:
-      greetingMessage: 
-        description: 'Generated greeting message'
-        value: ${{ steps.greeting.outputs.message }}
-
+      TEST_REQUIRED: ${{ github.event.inputs.TEST_REQUIRED }}
+    from:
+      - Build Workflow
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
-      - name: Downloand JAVA
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'adopt-hotspot'
-          java-version: '17'
-
-      - name: Build and Test with Maven
-        run: mvn -B test   
-      
       - name: Test
         run: echo "Testing the application..."
-      
       - name: Set deploy flag
-        run: echo "DEPLOY_REQUIRED=true" >> $GITHUB_ENV      
+        run: echo "DEPLOY_REQUIRED=true" >> $GITHUB_ENV

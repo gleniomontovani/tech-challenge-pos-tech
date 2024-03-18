@@ -7,7 +7,7 @@ on:
 
 jobs:
   useCallable:
-    uses: ./.github/workflows/test.yml
+    uses: octo-org/example-repo/.github/workflows/test.yml@v1
     with:
       name: 'Glenio'
 

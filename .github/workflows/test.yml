@@ -1,11 +1,10 @@
 name: Test Workflow
 
 on:
-  workflow_call:
-    inputs:
-      TEST_REQUIRED: ${{ github.event.inputs.TEST_REQUIRED }}
-    from:
-      - Build Workflow
+  workflow_run:
+    workflows: ["Build Workflow"]
+    types:
+      - completed
 
 jobs:
   test:
@@ -17,3 +16,6 @@ jobs:
         run: echo "Testing the application..."
       - name: Set deploy flag
         run: echo "DEPLOY_REQUIRED=true" >> $GITHUB_ENV
+
+
+

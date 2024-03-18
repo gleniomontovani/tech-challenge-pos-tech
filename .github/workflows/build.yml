@@ -15,4 +15,7 @@ jobs:
         run: echo "Building the application..."
       - name: Set test flag
         run: echo "TEST_REQUIRED=true" >> $GITHUB_ENV
+      - name: Run Test Workflow
+        if: success()
+        run: echo "::include .github/workflows/test.yml" >> ${{ github.workspace }}/.github/build.yml  
  

@@ -20,14 +20,14 @@ jobs:
         #uses: ./.github/workflows/test.yml
         uses: octo-org/example-repo/.github/workflows/test.yml@main
         with:
-          config-path: .github/test.yml
+          config-path: .github/workflows/test.yml
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    if: env.DEPLOY_REQUIRED == 'true'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Deploy
-        run: echo "Deploying the application..."   
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   if: env.DEPLOY_REQUIRED == 'true'
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+  #     - name: Deploy
+  #       run: echo "Deploying the application..."   

@@ -9,5 +9,5 @@ class TechChallengeApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
+	
 }

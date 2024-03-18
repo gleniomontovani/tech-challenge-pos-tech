@@ -57,6 +57,7 @@ jobs:
 
   
   tests:
+    needs: container-job
     name: Run Unit tests
     runs-on: ubuntu-latest
 

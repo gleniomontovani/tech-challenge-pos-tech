@@ -1,25 +1,30 @@
-name: Build
+name: Build the Application
 
 on:
   push:
-    branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build
+        run: echo "Building the application..."
+      - name: Set test flag
+        run: echo "TEST_REQUIRED=true" >> $GITHUB_ENV
+      - name: Run Test Workflow
+        if: success()
+        uses: ./.github/workflows/test.yml
 
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-
-      - uses: .github/workflows/test@v1          
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: env.DEPLOY_REQUIRED == 'true'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Deploy
+        run: echo "Deploying the application..."   

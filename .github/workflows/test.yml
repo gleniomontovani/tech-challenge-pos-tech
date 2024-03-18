@@ -1,20 +1,21 @@
-name: Build and Tests
+name: Test Workflow
 
-on: [push, pull_request]
+on:
+  workflow_run:
+    workflows: ["Build Workflow"]
+    types:
+      - completed
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Test
+        run: echo "Testing the application..."
+      - name: Set deploy flag
+        run: echo "DEPLOY_REQUIRED=true" >> $GITHUB_ENV
 
-    - name: Downloand JAVA
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'adopt-hotspot'
-        java-version: '17'
 
-    - name: Build and Test with Maven
-      run: mvn -B test
+

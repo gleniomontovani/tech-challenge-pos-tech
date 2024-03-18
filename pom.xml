@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.postech.software.architecture</groupId>
 	<artifactId>tech-challenge-pos-tech</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>tech-challenge</name>
 	<description>Tech Change - Pos Tech de Arquitetura de Software</description>
 	<properties>

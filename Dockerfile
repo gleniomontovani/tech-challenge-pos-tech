@@ -8,6 +8,7 @@ RUN mvn clean install -DskipTests
 
 FROM openjdk:17-alpine
 EXPOSE 8080
-COPY --from=build /app/target/tech-challenge-pos-tech-0.0.1-SNAPSHOT.jar tech-challenge-pos-tech.jar
+ENV APP_NAME tech-challenge-pos-tech
+COPY --from=build /app/target/${APP_NAME}-1.0.0.jar ${APP_NAME}.jar
 ENV JAVA_APP_ARGS="--spring.config.location=/src/main/resources/application.properties"
-ENTRYPOINT ["java","-jar","tech-challenge-pos-tech.jar", "$JAVA_APP_ARGS"]
+ENTRYPOINT java -jar ${APP_NAME}.jar

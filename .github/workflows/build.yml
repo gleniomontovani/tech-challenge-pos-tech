@@ -4,7 +4,6 @@ on:
   pull_request:
     branches: [ main ]
 
-<<<<<<< HEAD
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -36,7 +35,3 @@ jobs:
       run: docker rm -f tech-challenge-pos-tech
     - name: Run docker container
       run: docker run -d -p 8080:8080 -e DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}} -e DATABASE_PASSWORD='${{secrets.DATABASE_PASSWORD}}' -e DATABASE_URL=${{secrets.DATABASE_URL}} --name tech-challenge-pos-tech gleniomontovani/tech-challenge-pos-tech
-=======
- 
->>>>>>> main
-

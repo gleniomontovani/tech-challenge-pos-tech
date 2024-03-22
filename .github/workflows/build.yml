@@ -35,3 +35,15 @@ jobs:
       run: docker rm -f tech-challenge-pos-tech
     - name: Run docker container
       run: docker run -d -p 8080:8080 -e DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}} -e DATABASE_PASSWORD='${{secrets.DATABASE_PASSWORD}}' -e DATABASE_URL=${{secrets.DATABASE_URL}} --name tech-challenge-pos-tech gleniomontovani/tech-challenge-pos-tech
+
+      # - name: Install kubectl
+      #   run: |
+      #     curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+      #     chmod +x ./kubectl
+      #     sudo mv ./kubectl /usr/local/bin/kubectl
+
+      # - name: Update EKS 
+      #   run: |
+      #     aws eks --region us-east-1 update-kubeconfig --name nome-do-meu-eks
+      # - name: Apply Kubernetes configuration
+      #   run: kubectl apply -f pasta_dos_manisfesto.yaml

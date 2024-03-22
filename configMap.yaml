@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: tech-challenge-pos-tech-config
+data:
+  DATASOURCE_DB: restaurante
+  DATASOURCE_USERNAME: postgres
+  DATASOURCE_URL: jdbc:postgresql://postgresql-service:5432/restaurante

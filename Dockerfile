@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk-alpine
+FROM maven:3.8.3-openjdk-17-slim AS build
 WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:go-offline
@@ -8,7 +8,6 @@ RUN mvn clean install -DskipTests
 
 FROM openjdk:17-alpine
 EXPOSE 8080
-ENV APP_NAME tech-challenge-pos-tech
-COPY --from=build /app/target/${APP_NAME}-1.0.0.jar ${APP_NAME}.jar
+COPY --from=build /app/target/tech-challenge-pos-tech-1.0.0.jar tech-challenge-pos-tech.jar
 ENV JAVA_APP_ARGS="--spring.config.location=/src/main/resources/application.properties"
-ENTRYPOINT java -jar ${APP_NAME}.jar
+ENTRYPOINT ["java","-jar","tech-challenge-pos-tech.jar", "$JAVA_APP_ARGS"]

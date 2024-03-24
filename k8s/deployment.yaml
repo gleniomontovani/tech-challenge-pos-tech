@@ -20,10 +20,7 @@ spec:
             - containerPort: 8080
           env:
             - name: DATASOURCE_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: tech-challenge-pos-tech-config
-                  key: DATASOURCE_URL    
+              value: jdbc:postgresql://${DB_ENDPOINT}:5432/restaurante
             - name: DATASOURCE_USERNAME
               valueFrom:
                 configMapKeyRef:

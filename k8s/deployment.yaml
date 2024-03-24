@@ -15,9 +15,22 @@ spec:
       containers:
         - name: tech-challenge-pos-tech
           image: gleniomontovani/tech-challenge-pos-tech:latest
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+          env:
+            - name: DATASOURCE_URL
+              value: jdbc:postgresql://${DB_ENDPOINT}:5432/restaurante
+            - name: DATASOURCE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: tech-challenge-pos-tech-config
+                  key: DATASOURCE_USERNAME  
+            - name: DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: DATASOURCE_PASSWORD
+                  name: tech-challenge-pos-tech-secret            
           resources:
             requests:
               memory: "512Mi"

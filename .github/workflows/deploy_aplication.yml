@@ -75,6 +75,9 @@
          run: |
            aws eks --region ${{ secrets.AWS_DEFAULT_REGION }} update-kubeconfig --name ${{ secrets.CLUSTER_NAME_EKS }}
 
+       - name: Entrando no diretório
+         run:  cd k8s  
+
        - name: Lista diretório
          run: find . -type d -name "k8s"
 

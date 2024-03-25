@@ -65,6 +65,9 @@
            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
            aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
+       - name: Checkout Repository
+         uses: actions/checkout@v2       
+
        - name: Install kubectl
          run: |
            curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -76,9 +79,7 @@
            aws eks --region ${{ secrets.AWS_DEFAULT_REGION }} update-kubeconfig --name ${{ secrets.CLUSTER_NAME_EKS }}
 
        - name: Entrando no diretório
-         run: |
-           cd $GITHUB_WORKSPACE
-           ls 
+         run: ls 
 
 
        # - name: Apply Kubernetes Configuration

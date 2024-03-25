@@ -11,6 +11,20 @@
        - name: Checkout Code
          uses: actions/checkout@v3
 
+       - name: Download Environment Variable
+         uses: joutvhu/download-s3@v1
+         with:
+           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+           aws_region: ${{ secrets.AWS_DEFAULT_REGION }}
+           aws_bucket: ${{ secrets.AWS_BUCKET }}
+           source: ${{ secrets.AWS_S3_BUCKET_SOURCE_DB }}
+
+       - name: Get Environment Variable
+         run: |
+           cat rds_endpoint  
+           export RDS_ENDPOINT=$(cat rds_endpoint)    
+
        - name: Setup Java
          uses: actions/setup-java@v3
          with:
@@ -24,7 +38,7 @@
          run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
        - name: Build Docker Image
-         run: docker build -t ${{ secrets.DOCKER_IMAGE }} .
+         run: docker build --build-arg DB_ENDPOINT=$RDS_ENDPOINT -t ${{ secrets.DOCKER_IMAGE }} .
 
        - name: Push Image Docker
          run: docker push ${{ secrets.DOCKER_IMAGE }}

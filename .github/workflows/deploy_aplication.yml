@@ -78,5 +78,5 @@
        - name: Lista diretorio
          run: ls
 
-       # - name: Apply Kubernetes Configuration
-       #   run: kubectl apply -f k8s/*
+       - name: Apply Kubernetes Configuration
+         run: kubectl apply -f k8s/*

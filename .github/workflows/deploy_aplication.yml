@@ -1,9 +1,15 @@
  name: Build and Deploy API
 
  on:
-   pull_request:
-     branches: [ main ]
-
+   # pull_request:
+   #   branches: [ main ]
+   workflow_dispatch:
+    inputs:
+      dir:
+        description: 'Directory with resources to be destroyed'
+        required: true
+        default: 'terraform'
+        
  jobs:
    build:
      runs-on: ubuntu-latest

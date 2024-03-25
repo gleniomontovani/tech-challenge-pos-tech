@@ -1,8 +1,8 @@
  name: Build and Deploy API
 
  on:
-   # pull_request:
-   push:
+   pull_request:
+   # push:
       branches: [ main ]
         
  jobs:
@@ -45,14 +45,14 @@
        - name: Build Project
          run: mvn clean install -DskipTests
 
-       # - name: Login Docker Hub
-       #   run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+       - name: Login Docker Hub
+         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-       # - name: Build Docker Image
-       #   run: docker build --build-arg DB_ENDPOINT=$RDS_ENDPOINT -t ${{ secrets.DOCKER_IMAGE }} .
+       - name: Build Docker Image
+         run: docker build --build-arg DB_ENDPOINT=$RDS_ENDPOINT -t ${{ secrets.DOCKER_IMAGE }} .
 
-       # - name: Push Image Docker
-       #   run: docker push ${{ secrets.DOCKER_IMAGE }}
+       - name: Push Image Docker
+         run: docker push ${{ secrets.DOCKER_IMAGE }}
 
    # deploy:
    #   runs-on: ubuntu-latest

@@ -24,7 +24,7 @@
       
        - name: Download Environment Variable
          run: |
-           aws s3 cp s3://${{ secrets.AWS_BUCKET }}/${{ secrets.AWS_S3_BUCKET_SOURCE_DB }} ${{ secretsAWS_S3_FILE_RDS }}
+           aws s3 cp s3://${{ secrets.AWS_BUCKET }}/${{ secrets.AWS_S3_BUCKET_SOURCE_DB }} .
            cat rds_endpoint.txt 
            RDS_ENDPOINT=$(cat rds_endpoint.txt)
            echo "RDS_ENDPOINT=$RDS_ENDPOINT" >> $GITHUB_ENV

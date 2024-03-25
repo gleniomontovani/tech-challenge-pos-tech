@@ -37,6 +37,7 @@
 
        - name: Print Environment Variable
          run: echo "$RDS_ENDPOINT"
+         shell: bash
 
        # - name: Setup Java
        #   uses: actions/setup-java@v3

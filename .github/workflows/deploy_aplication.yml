@@ -2,13 +2,8 @@
 
  on:
    # pull_request:
-   #   branches: [ main ]
-   workflow_dispatch:
-    inputs:
-      dir:
-        description: 'Directory with resources to be destroyed'
-        required: true
-        default: 'terraform'
+   push:
+      branches: [ main ]
         
  jobs:
    build:
@@ -26,49 +21,55 @@
            aws_bucket: ${{ secrets.AWS_BUCKET }}
            source: ${{ secrets.AWS_S3_BUCKET_SOURCE_DB }}
 
+       - name: List Folder
+         run: ls
+
        - name: Get Environment Variable
          run: |
            cat rds_endpoint  
            export RDS_ENDPOINT=$(cat rds_endpoint)    
 
-       - name: Setup Java
-         uses: actions/setup-java@v3
-         with:
-           distribution: 'adopt-hotspot'
-           java-version: '17'
+       - name: Print Environment Variable
+         run: echo "$RDS_ENDPOINT"
 
-       - name: Build Project
-         run: mvn clean install -DskipTests
+       # - name: Setup Java
+       #   uses: actions/setup-java@v3
+       #   with:
+       #     distribution: 'adopt-hotspot'
+       #     java-version: '17'
 
-       - name: Login Docker Hub
-         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+       # - name: Build Project
+       #   run: mvn clean install -DskipTests
 
-       - name: Build Docker Image
-         run: docker build --build-arg DB_ENDPOINT=$RDS_ENDPOINT -t ${{ secrets.DOCKER_IMAGE }} .
+       # - name: Login Docker Hub
+       #   run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-       - name: Push Image Docker
-         run: docker push ${{ secrets.DOCKER_IMAGE }}
+       # - name: Build Docker Image
+       #   run: docker build --build-arg DB_ENDPOINT=$RDS_ENDPOINT -t ${{ secrets.DOCKER_IMAGE }} .
 
-   deploy:
-     runs-on: ubuntu-latest
-     needs: build
-     steps:
-       - name: Set Up AWS Credentials
-         uses: aws-actions/configure-aws-credentials@v1
-         with:
-           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+       # - name: Push Image Docker
+       #   run: docker push ${{ secrets.DOCKER_IMAGE }}
 
-       - name: Install kubectl
-         run: |
-           curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-           chmod +x ./kubectl
-           sudo mv ./kubectl /usr/local/bin/kubectl
+   # deploy:
+   #   runs-on: ubuntu-latest
+   #   needs: build
+   #   steps:
+   #     - name: Set Up AWS Credentials
+   #       uses: aws-actions/configure-aws-credentials@v1
+   #       with:
+   #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+   #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+   #         aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
-       - name: Update EKS Kubeconfig
-         run: |
-           aws eks --region ${{ secrets.AWS_DEFAULT_REGION }} update-kubeconfig --name ${{ secrets.CLUSTER_NAME_EKS }}
+   #     - name: Install kubectl
+   #       run: |
+   #         curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+   #         chmod +x ./kubectl
+   #         sudo mv ./kubectl /usr/local/bin/kubectl
 
-       - name: Apply Kubernetes Configuration
-         run: kubectl apply -f ../k8s/
+   #     - name: Update EKS Kubeconfig
+   #       run: |
+   #         aws eks --region ${{ secrets.AWS_DEFAULT_REGION }} update-kubeconfig --name ${{ secrets.CLUSTER_NAME_EKS }}
+
+   #     - name: Apply Kubernetes Configuration
+   #       run: kubectl apply -f ../k8s/

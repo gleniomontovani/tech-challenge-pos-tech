@@ -78,9 +78,5 @@
          run: |
            aws eks --region ${{ secrets.AWS_DEFAULT_REGION }} update-kubeconfig --name ${{ secrets.CLUSTER_NAME_EKS }}
 
-       - name: Entrando no diretório
-         run: ls 
-
-
-       # - name: Apply Kubernetes Configuration
-       #   run: kubectl apply -f k8s/*
+       - name: Apply Kubernetes Configuration
+         run: kubectl apply -f k8s/*

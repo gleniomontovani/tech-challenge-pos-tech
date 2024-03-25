@@ -9,26 +9,31 @@
    build:
      runs-on: ubuntu-latest
      steps:
+       - name: Configure AWS Credentials
+         run: |
+           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+       
        - name: Checkout Code
          uses: actions/checkout@v3
-
+       
+       - name: Install AWS CLI
+         run: |
+           sudo apt-get update
+           sudo apt-get install -y awscli
+      
        - name: Download Environment Variable
-         uses: joutvhu/download-s3@v1
-         with:
-           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-           aws_region: ${{ secrets.AWS_DEFAULT_REGION }}
-           aws_bucket: ${{ secrets.AWS_BUCKET }}
-           source: ${{ secrets.AWS_S3_BUCKET_SOURCE_DB }}
-           target: './k8s'
+         run: |
+           aws s3 cp s3://${{ secrets.AWS_BUCKET }}/${{ secrets.AWS_S3_BUCKET_SOURCE_DB }} .
+           cat rds_endpoint  
+           export RDS_ENDPOINT=$(cat ${{ secrets.AWS_S3_FILE_RDS }})  
+         env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}  
 
        - name: List Folder
-         run: ls
-
-       - name: Get Environment Variable
-         run: |
-           cat rds_endpoint  
-           export RDS_ENDPOINT=$(cat rds_endpoint)    
+         run: ls   
 
        - name: Print Environment Variable
          run: echo "$RDS_ENDPOINT"

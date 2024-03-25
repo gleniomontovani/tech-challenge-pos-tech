@@ -1,8 +1,8 @@
  name: Build and Deploy API
 
  on:
-   pull_request:
-   #push:
+   #pull_request:
+   push:
       branches: [ main ]
         
  jobs:
@@ -39,7 +39,7 @@
        - name: Setup Java
          uses: actions/setup-java@v3
          with:
-           distribution: 'adopt-hotspot'
+           distribution: 'temurin'
            java-version: '17'
 
        - name: Build Project

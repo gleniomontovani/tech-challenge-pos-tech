@@ -78,7 +78,7 @@
        - name: Entrando no diretório
          run: |
            cd $GITHUB_WORKSPACE
-           ls k8s
+           ls 
 
 
        # - name: Apply Kubernetes Configuration

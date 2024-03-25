@@ -34,7 +34,7 @@
        - name: Setup Java
          uses: actions/setup-java@v3
          with:
-           distribution: 'alpine'
+           distribution: 'adopt-hotspot'
            java-version: '17'
 
        - name: Build Project

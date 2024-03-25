@@ -76,7 +76,9 @@
            aws eks --region ${{ secrets.AWS_DEFAULT_REGION }} update-kubeconfig --name ${{ secrets.CLUSTER_NAME_EKS }}
 
        - name: Entrando no diretório
-         run:  ls $GITHUB_WORKSPACE/k8s
+         run: |
+           cd $GITHUB_WORKSPACE
+           ls k8s
 
 
        # - name: Apply Kubernetes Configuration

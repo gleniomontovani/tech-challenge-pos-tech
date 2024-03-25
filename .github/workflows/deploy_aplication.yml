@@ -25,7 +25,6 @@
        - name: Download Environment Variable
          run: |
            aws s3 cp s3://${{ secrets.AWS_BUCKET }}/${{ secrets.AWS_S3_BUCKET_SOURCE_DB }} download.txt
-           cat download.txt
            RDS_ENDPOINT=$(cat download.txt)
            echo "RDS_ENDPOINT=$RDS_ENDPOINT" >> $GITHUB_ENV
          env:
@@ -33,21 +32,18 @@
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}  
 
-       - name: List Folder
-         run: ls   
+       # - name: Print Environment Variable
+       #   run: echo $RDS_ENDPOINT
+       #   shell: bash
 
-       - name: Print Environment Variable
-         run: echo $RDS_ENDPOINT
-         shell: bash
+       - name: Setup Java
+         uses: actions/setup-java@v3
+         with:
+           distribution: 'adopt-hotspot'
+           java-version: '17'
 
-       # - name: Setup Java
-       #   uses: actions/setup-java@v3
-       #   with:
-       #     distribution: 'adopt-hotspot'
-       #     java-version: '17'
-
-       # - name: Build Project
-       #   run: mvn clean install -DskipTests
+       - name: Build Project
+         run: mvn clean install -DskipTests
 
        # - name: Login Docker Hub
        #   run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}

@@ -15,7 +15,7 @@ spec:
       containers:
         - name: tech-challenge-pos-tech
           image: gleniomontovani/tech-challenge-pos-tech:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8081
           env:

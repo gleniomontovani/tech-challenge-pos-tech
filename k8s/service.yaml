@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tech-challenge-pos-tech-service
+  labels:
+    app: tech-challenge-pos-tech
 spec:
   selector:
     app: tech-challenge-pos-tech

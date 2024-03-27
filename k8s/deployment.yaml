@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tech-challenge-pos-tech
+  labels:
+    app: tech-challenge-pos-tech
 spec:
   replicas: 1
   selector:

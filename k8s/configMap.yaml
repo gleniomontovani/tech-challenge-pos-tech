@@ -3,6 +3,8 @@ kind: ConfigMap
 metadata:
   creationTimestamp: null
   name: tech-challenge-pos-tech-config
+  labels:
+    app: tech-challenge-pos-tech
 data:
   DATASOURCE_DB: restaurante
   DATASOURCE_USERNAME: postgres

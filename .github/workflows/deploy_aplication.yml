@@ -93,7 +93,7 @@
        
        - name: Get Load Balancer URL
          run: |
-           kubectl get service KUBERNETES_SERVICES -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}' > load_balancer_url.txt
+           kubectl get service ${{ secrets.KUBERNETES_SERVICES }} -o=jsonpath='{.status.loadBalancer.ingress[0].hostname}' > load_balancer_url.txt
 
        # - name: Instalar o AWS CLI
        #   run: |
